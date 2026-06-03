@@ -1,6 +1,7 @@
 // ============================================================================
 // People Analytics Portfolio Showcase — Custom JS Logic
 // ============================================================================
+import csvDataUrl from './output/hr_cleaned.csv?url';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Navigation tabs state & elements
@@ -314,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load and Parse Cleaned Dataset CSV
   function fetchAndInitializeDashboard() {
     // Vite servers root path contains `/output/hr_cleaned.csv`
-    Papa.parse('output/hr_cleaned.csv', {
+    Papa.parse(csvDataUrl, {
       download: true,
       header: true,
       dynamicTyping: true,
