@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workforce Attrition Analytics | Portfolio Showcase</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Library CDNs -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <div class="logo-details">
+      <i class="bx bx-analyse icon"></i>
+      <div class="logo_name">PeopleAnalytics</div>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="#" class="active" data-tab="dashboard">
+          <i class="bx bx-grid-alt"></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-tab="sql-playground">
+          <i class="bx bx-code-block"></i>
+          <span class="links_name">SQL Playground</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-tab="executive-report">
+          <i class="bx bx-file-blank"></i>
+          <span class="links_name">Executive Report</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-tab="tableau-guide">
+          <i class="bx bx-layout"></i>
+          <span class="links_name">Tableau Build Guide</span>
+        </a>
+      </li>
+      <li class="profile">
+        <div class="profile-details">
+          <div class="name_job">
+            <div class="name">Girija S.</div>
+            <div class="job">HR to Analytics</div>
+          </div>
+        </div>
+        <i class="bx bx-user" id="log_out"></i>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <section class="home-section">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-titles">
+        <div class="text">Decoding Workforce Attrition</div>
+        <div class="subtitle">A Business-First Analysis of Why Employees Leave & the Cost of Churn</div>
+      </div>
+      <button id="theme-toggle" class="btn btn-secondary theme-toggle-btn">
+        <i class="bx bx-sun"></i> <span>Light Mode</span>
+      </button>
+    </header>
+
+    <div class="main-content-container">
+      
+      <!-- TAB 1: INTERACTIVE DASHBOARD -->
+      <div id="dashboard" class="tab-content active">
+        
+        <!-- Filters Row -->
+        <div class="card filters-card">
+          <div class="filters-header">
+            <i class="bx bx-filter-alt"></i>
+            <span>Interactive Data Filters (Updates Dashboard in Real-Time)</span>
+            <button id="reset-filters" class="btn btn-secondary btn-sm">Reset Filters</button>
+          </div>
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label for="filter-dept">Department</label>
+              <select id="filter-dept" class="form-control">
+                <option value="All">All Departments</option>
+                <option value="Sales">Sales</option>
+                <option value="Research & Development">Research & Development</option>
+                <option value="Human Resources">Human Resources</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-role">Job Role</label>
+              <select id="filter-role" class="form-control">
+                <option value="All">All Roles</option>
+                <!-- Roles populated dynamically -->
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-overtime">Overtime</label>
+              <select id="filter-overtime" class="form-control">
+                <option value="All">All Overtime Status</option>
+                <option value="Yes">Works Overtime</option>
+                <option value="No">No Overtime</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-satisfaction">Job Satisfaction</label>
+              <select id="filter-satisfaction" class="form-control">
+                <option value="All">All Levels</option>
+                <option value="1">Low (1)</option>
+                <option value="2">Medium (2)</option>
+                <option value="3">High (3)</option>
+                <option value="4">Very High (4)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Cards Grid -->
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper blue">
+              <i class="bx bx-group"></i>
+            </div>
+            <div class="kpi-info">
+              <div class="kpi-value" id="kpi-total">1,470</div>
+              <div class="kpi-label">Active Headcount</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper coral">
+              <i class="bx bx-exit"></i>
+            </div>
+            <div class="kpi-info">
+              <div class="kpi-value text-coral" id="kpi-attrition">16.1%</div>
+              <div class="kpi-label">Attrition Rate</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper green">
+              <i class="bx bx-dollar-circle"></i>
+            </div>
+            <div class="kpi-info">
+              <div class="kpi-value" id="kpi-income">$6,503</div>
+              <div class="kpi-label">Avg Monthly Salary</div>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper purple">
+              <i class="bx bx-time-five"></i>
+            </div>
+            <div class="kpi-info">
+              <div class="kpi-value" id="kpi-tenure">7.0 yrs</div>
+              <div class="kpi-label">Avg Tenure at Company</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          
+          <div class="card chart-card large">
+            <div class="chart-header">
+              <div class="chart-title">The Overtime Pipeline: Burnout Catalyst</div>
+              <div class="chart-subtitle">Overtime is the #1 leading indicator of attrition. 30.5% attrition rate vs 10.4% without.</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-overtime"></canvas>
+            </div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Attrition by Department</div>
+              <div class="chart-subtitle">Sales represents the highest risk area, followed closely by Human Resources.</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-department"></canvas>
+            </div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Monthly Income vs. Attrition</div>
+              <div class="chart-subtitle">Lower-paid positions face the highest flight risk (Gap of ~$2,000 median income).</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-income"></canvas>
+            </div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Attrition by Age Band</div>
+              <div class="chart-subtitle">Younger employees (18-25) churn rapidly (~36%), stabilizing as tenure increases.</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-age"></canvas>
+            </div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div class="chart-title">Survey Scores vs. Retention</div>
+              <div class="chart-subtitle">Annual satisfaction ratings hold prediction weight, but aren't absolute.</div>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-satisfaction"></canvas>
+            </div>
+          </div>
+
+          <div class="card chart-card large">
+            <div class="chart-header-row">
+              <div class="chart-header">
+                <div class="chart-title">🚫 Dead End Hypothesis: Commute Distance</div>
+                <div class="chart-subtitle">Expectation: Long commutes drive resignations. Reality: Commute is a noisy, flat signal.</div>
+              </div>
+              <span class="badge badge-warning">Null Finding</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-commute"></canvas>
+            </div>
+            <div class="chart-footer-note">
+              <i class="bx bx-info-circle"></i>
+              <span><strong>Key Insight:</strong> Real data analysis has dead ends. Documenting what does <em>not</em> drive turnover prevents leadership from investing in expensive remote-work benefits that won't move the retention needle.</span>
+            </div>
+          </div>
+
+          <div class="card chart-card large">
+            <div class="chart-header-row">
+              <div class="chart-header">
+                <div class="chart-title">🔍 The Flight Risk of Top Performers</div>
+                <div class="chart-subtitle">Counter-intuitive: "Excellent" & "Outstanding" employees leave at exactly the same rate (~16%).</div>
+              </div>
+              <span class="badge badge-success">Critical Insight</span>
+            </div>
+            <div class="perfrating-grid">
+              <div class="perfrating-col">
+                <div class="perf-rating-num">16.1%</div>
+                <div class="perf-rating-label">Excellent Performers Attrition</div>
+                <div class="perf-rating-sub">200 left out of 1,244 total</div>
+              </div>
+              <div class="perfrating-col">
+                <div class="perf-rating-num text-coral">16.4%</div>
+                <div class="perf-rating-label">Outstanding Performers Attrition</div>
+                <div class="perf-rating-sub">37 left out of 226 total</div>
+              </div>
+              <div class="perfrating-text">
+                <strong>Why does this happen?</strong>
+                <ul>
+                  <li>Top performers are heavily recruited externally and carry the highest market mobility.</li>
+                  <li>They expect faster tracks for promotion; when blocked, they exit.</li>
+                  <li>Managers assume they are "happy enough" because they succeed, ignoring their flight risk.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- TAB 2: SQL PLAYGROUND -->
+      <div id="sql-playground" class="tab-content">
+        <div class="sql-playground-layout">
+          <!-- SQL Question Sidebar -->
+          <div class="card sql-list-card">
+            <h3>SQLite Business Queries</h3>
+            <p class="section-desc">Select a query to see the underlying SQL script and its actual database execution result.</p>
+            <div class="sql-links" id="sql-links-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- SQL View Console -->
+          <div class="sql-console-column">
+            <div class="card sql-code-card">
+              <div class="console-header">
+                <span class="console-tab-active"><i class="bx bx-terminal"></i> SQL Query Script</span>
+                <button id="copy-sql-btn" class="btn btn-secondary btn-sm"><i class="bx bx-copy"></i> Copy</button>
+              </div>
+              <div class="code-box">
+                <pre><code class="language-sql" id="sql-code-display">-- Select a query from the sidebar to inspect SQL</code></pre>
+              </div>
+            </div>
+
+            <div class="card sql-result-card">
+              <div class="result-header">
+                <span><i class="bx bx-table"></i> Query Execution Result (SQLite Output)</span>
+                <span class="exec-time" id="sql-execution-meta">0.2 ms</span>
+              </div>
+              <div class="sql-insight-box" id="sql-insight-display">
+                <!-- Insight text -->
+              </div>
+              <div class="table-responsive">
+                <table class="table" id="sql-result-table">
+                  <thead>
+                    <tr><th>Select a query to run</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>No data fetched.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: EXECUTIVE REPORT -->
+      <div id="executive-report" class="tab-content">
+        <div class="report-layout">
+          <!-- Document Content -->
+          <div class="card report-card">
+            <div class="document-container">
+              <div class="doc-header">
+                <h1 class="doc-title">3 Workforce Risks Hiding in Your HR Data</h1>
+                <div class="doc-meta">
+                  <span><strong>Prepared by:</strong> Girija S. | People Analytics</span>
+                  <span><strong>Target Audience:</strong> VP of Human Resources, Executive Committee</span>
+                  <span><strong>Dataset:</strong> IBM Attrition Study (1,470 records)</span>
+                </div>
+              </div>
+
+              <div class="doc-body">
+                <div class="executive-summary">
+                  <h3>The Financial Problem</h3>
+                  <p>Replacing an employee is a severe financial leakage, costing between <strong>50% and 200%</strong> of their annual salary in recruitment, training, ramp-up time, and lost institutional knowledge. Across our organization, 237 employees departed over this review cycle—a <strong>16.1% attrition rate</strong>. Estimating a highly conservative replacement cost of $15,000 per head, this turnover is a <strong>$3.5 million baseline cost</strong>. This leakage is not uniform; it's highly clustered. Targeted, structural policy shifts—rather than generic broad engagement campaigns—represent the highest-ROI solution.</p>
+                </div>
+
+                <h2>Key Workforce Risks & Findings</h2>
+                
+                <div class="risk-section">
+                  <h4><span class="risk-number">01</span> Overtime is a 3x Attrition Multiplier</h4>
+                  <p>Employees working overtime leave at a rate of <strong>30.5%</strong>, compared to just <strong>10.4%</strong> for those who do not work overtime. In organizational metrics, overtime is often misconstrued as engagement; the data shows it is a burnout fuse. Caps or triggers on chronic overtime are highly actionable levers.</p>
+                </div>
+
+                <div class="risk-section">
+                  <h4><span class="risk-number">02</span> The Sales Org is Losing 1 in 5 Staff Members</h4>
+                  <p>Sales department attrition is <strong>20.6%</strong>, nearly double the Research & Development baseline rate (13.8%). Specifically, entry-level <strong>Sales Representatives</strong> face a catastrophic <strong>39.8% attrition rate</strong>, driven by a combination of low entry pay (average $2,626/mo) and demanding workloads.</p>
+                </div>
+
+                <div class="risk-section">
+                  <h4><span class="risk-number">03</span> Entry-Level Pay Depressions Drive Out talent</h4>
+                  <p>Employees earning under $3,000/month leave at twice the rate of employees earning over $10,000/month. The median income of departing employees is roughly **$2,000/month lower** than those retained. A compensation adjustment program targeted at the lowest-paid critical operational roles would pay for itself in saved replacement costs.</p>
+                </div>
+
+                <h2>Proposed Recommendations</h2>
+                <div class="recommendation-list">
+                  <div class="rec-item">
+                    <h5>1. Implement an Overtime "Circuit Breaker"</h5>
+                    <p>Setup automated flags in the HRIS/timekeeping system when an employee exceeds overtime thresholds for 3 consecutive weeks. This triggers an immediate operational review of manager resource allocations before resignation letters arrive. Cost: $0.</p>
+                  </div>
+                  <div class="rec-item">
+                    <h5>2. Compensation Adjustments for Bottom-Quartile Roles</h5>
+                    <p>Conduct a targeted compensation review for entry Sales Representatives and Laboratory Technicians (both carrying >23% churn). A modest 5-8% market alignment adjustment represents a fraction of the cost required to continually source and train their replacements.</p>
+                  </div>
+                  <div class="rec-item">
+                    <h5>3. Build a High-Risk Flight Warning Filter</h5>
+                    <p>Instead of relying on complex machine learning, setup simple queries filtering employees who have: <em>Overtime = Yes</em> AND <em>Job Satisfaction &lt;= 2</em> AND <em>Tenure &lt;= 3 years</em> AND <em>Stock Options = 0</em>. Our database shows this cohort has a <strong>60.6% attrition rate</strong>. Managers should prioritize direct retention reviews (stay interviews) for flagged employees.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Attrition Calculator Sidebar -->
+          <div class="card calculator-card">
+            <h3><i class="bx bx-calculator"></i> Cost of Attrition Calculator</h3>
+            <p class="section-desc">Estimate the cost of attrition and model the ROI of retention strategies.</p>
+            
+            <div class="calc-group">
+              <label for="calc-departures">Departures (Leavers)</label>
+              <input type="number" id="calc-departures" value="237" class="form-control">
+            </div>
+
+            <div class="calc-group">
+              <label for="calc-cost">Avg Replacement Cost per Head</label>
+              <div class="input-prefix-wrapper">
+                <span class="prefix">$</span>
+                <input type="number" id="calc-cost" value="15000" class="form-control">
+              </div>
+              <span class="help-text">Includes recruiting, training, onboarding, and ramp-up lag.</span>
+            </div>
+
+            <div class="calc-totals">
+              <div class="total-cost-box">
+                <div class="total-label">Total Cost to Company</div>
+                <div class="total-value" id="calc-result-total">$3,555,000</div>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="calc-group">
+              <label for="calc-reduction">Target Retention Rate Improvement</label>
+              <div class="slider-wrapper">
+                <input type="range" id="calc-reduction" min="5" max="50" step="5" value="15">
+                <span class="slider-value" id="calc-reduction-label">15% fewer departures</span>
+              </div>
+            </div>
+
+            <div class="savings-totals">
+              <div class="savings-item">
+                <span class="savings-lbl">Retained Employees:</span>
+                <strong id="calc-saved-heads">35 staff</strong>
+              </div>
+              <div class="savings-item">
+                <span class="savings-lbl">Projected Savings:</span>
+                <strong class="text-green" id="calc-saved-dollars">$525,000</strong>
+              </div>
+            </div>
+            
+            <div class="alert alert-info">
+              <i class="bx bx-bulb"></i>
+              <span><strong>ROI Highlight:</strong> Retaining just 35 employees saves enough capital to finance targeted comp adjustments for the entire lower-quartile workforce.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: TABLEAU GUIDE -->
+      <div id="tableau-guide" class="tab-content">
+        <div class="card tableau-card">
+          <h2>Tableau Packaging & Layout Guide</h2>
+          <p class="section-desc">Instructions and specs to build an interactive mirror of this analysis inside Tableau Desktop.</p>
+          
+          <div class="tab-steps-grid">
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <h4>Connect Data</h4>
+              <p>Import the cleaned CSV `output/hr_cleaned.csv` into Tableau. Force `AttritionFlag` to be a Dimension, and assign the 1-4 scale fields (e.g., JobSatisfaction) as Dimensions/Calculated segments.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <h4>Configure Color Palette</h4>
+              <p>Add the custom color palette preference in your `Preferences.tps` file: Use `#1B2A4A` (Dark Navy), `#E05C5C` (Coral), and `#4A90D9` (Steel Blue).</p>
+            </div>
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <h4>Calculated Fields</h4>
+              <p>Create key measures like <code>Attrition Rate = SUM([AttritionFlag]) / COUNT([AttritionFlag])</code> and <code>Avg Monthly Income = AVG([MonthlyIncome])</code>.</p>
+            </div>
+          </div>
+
+          <div class="layout-ascii-box">
+            <h3>Visual Dashboard Specs: Executive Overview</h3>
+            <pre>
+┌────────────────────────────────────────────────────────────────────────┐
+│  PEOPLE ANALYTICS: WORKFORCE ATTRITION DASHBOARD                       │
+│  ─ Executive Overview ─                                                │
+├───────────────────┬───────────────────┬───────────────────┬────────────┤
+│  TOTAL EMPLOYEES  │  ATTRITION RATE   │  AVG TENURE       │ AVG SALARY │
+│  1,470 (white)    │  16.1% (coral)    │  7.0 yrs (white)  │ $6,503     │
+├───────────────────┴───────────────────┴───────────────────┴────────────┤
+│                                   │                                    │
+│  ATTRITION BY DEPARTMENT (Bar)    │  ATTRITION BY AGE GROUP (Bar)      │
+│  Sales (20.6%)                    │  18-25: 35.8%                      │
+│  R&D   (13.8%)                    │  26-35: 19.1%                      │
+│                                   │  36-45: 9.2%                       │
+│                                   │                                    │
+├───────────────────────────────────┴────────────────────────────────────┤
+│ ▍ KEY INSIGHTS                                                         │
+│ • Overtime is a 3x attrition multiplier (30.5% vs 10.4%).             │
+│ • Entry-level Sales representatives leave at a rate of 39.8%.          │
+│ • Top performers ("Outstanding" rating) leave at the same rate (~16%).  │
+└────────────────────────────────────────────────────────────────────────┘
+            </pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- External Library JS CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  
+  <!-- Custom Logic JS -->
+  <script src="app.js"></script>
+</body>
+</html>
